@@ -1,20 +1,21 @@
 #include<stdio.h>
 struct Post
 {
- char a[100];
+ int a[100];
  int top;
 };
-void push(struct Post *p,char a)
+void push(struct Post *p,int b)
 {
  p->top++;
- p->top=a;
+ p->a[p->top]=b;
 }
-char pop(struct Post *p)
+int pop(struct Post *p)
 {
  p->top--;
  return(p->a[p->top+1]);
 
 }
+
 void main()
 {
 struct Post p;
@@ -23,10 +24,14 @@ p.top=-1;
 int i=0;
 printf("Enter the postfix expression ");
 scanf("%s",exp);
-for(i=0;exp[i]!='\n';i++)
+
+for(i=0;exp[i]!='\0';i++)
  {
-   if(exp[i]>=0 && exp[i]<=9)
-    push(&p,exp[i]);
+   
+   if(exp[i]>=48 && exp[i]<=57)
+    {
+      push(&p,exp[i]-48);
+    }
    else if(exp[i]=='+')
    {
     int b=pop(&p);
@@ -52,5 +57,5 @@ for(i=0;exp[i]!='\n';i++)
     push(&p,a/b);
    }
  }
- printf("\nthe value of expression is %c ",pop(&p));  
+ printf("The value of expression is %d\n ",pop(&p));  
 } 
