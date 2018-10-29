@@ -85,7 +85,7 @@ void Delete()
    printf("enter the title to be deleted ");
    scanf("%s",title);
   struct node *ptr=rptr,*pptr=rptr;
-   while(ptr!=NULL)
+   while(ptr!=NULL && c==0)
    {
      
       if(strcmp(title,ptr->title)==0)
@@ -119,7 +119,7 @@ void Delete()
         }
         else
         {
-         struct node *kptr=ptr->lcptr,*jptr=ptr->lcptr;
+         struct node *kptr=ptr,*jptr=ptr->lcptr;   //kptr - parent , jptr-to be deleted
          while(jptr->rcptr!=NULL)
          {
           kptr=jptr;
@@ -131,7 +131,9 @@ void Delete()
          //delte jptr
           if(jptr->lcptr==NULL && jptr->rcptr==NULL)
         {
+         if(kptr->lcptr==jptr)
          kptr->lcptr=NULL;
+         else
          kptr->rcptr=NULL;
          c++;break;
          }
@@ -165,16 +167,21 @@ void Delete()
         
       }
       else if(strcmp(title,ptr->title)>0)
-       ptr=ptr->rcptr;
+       {
+       		pptr=ptr;
+       		ptr=ptr->rcptr;
+       }
       else 
-       ptr=ptr->lcptr;
+       {
+       		pptr=ptr;	
+       		ptr=ptr->lcptr;
+       }
        
-    pptr=ptr;
+    
    }
    if(c==0)
    printf("not present\n");
-   else
-   printf("present\n");
+   
 }    
 
 
